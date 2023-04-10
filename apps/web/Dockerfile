@@ -1,10 +1,11 @@
 FROM node:18-alpine
 ENV NODE_ENV=production
-USER node
+USER nextjs
 WORKDIR /api
-COPY --chown=node package*.json ./
+COPY --chown=nextjs .env.example .env.local
+COPY --chown=nextjs package*.json ./
 RUN npm install
-COPY --chown=node . .
+COPY --chown=nextjs . .
 RUN npm run build   
 ENV HOST=0.0.0.0 PORT=8080
 EXPOSE ${PORT}
